@@ -6,6 +6,7 @@ use App\Models\Teacher;
 use App\Models\ClassRoom;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
+use App\Http\Requests\ClassCreateRequest;
 
 class ClassController extends Controller
 {
@@ -48,7 +49,7 @@ class ClassController extends Controller
         return view('class-add', ['teacher' => $teacher]);
     }
 
-    public function store(Request $request)
+    public function store(ClassCreateRequest $request)
     {
         // $student = new Student;
         // $student->name = $request->name;

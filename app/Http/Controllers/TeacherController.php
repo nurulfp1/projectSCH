@@ -6,6 +6,7 @@ use App\Models\Teacher;
 use App\Models\ClassRoom;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
+use App\Http\Requests\TeacherCreateRequest;
 
 class TeacherController extends Controller
 {
@@ -29,11 +30,11 @@ class TeacherController extends Controller
         return view('teacher-add', ['teacher' => $teacher, 'class' => $class]);
     }
         
-    public function store(Request $request)
+    public function store(TeacherCreateRequest $request)
     {
 
         $class = ClassRoom::select('id', 'name')->get();
-        $teacher=Teacher::create($request->all()); //mass assigment, lebih ringkas
+        $teacher = Teacher::create($request->all()); //mass assigment, lebih ringkas
 
         if($teacher) {
             Session::flash('status', 'success');

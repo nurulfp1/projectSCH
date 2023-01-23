@@ -5,16 +5,27 @@
 @section('content')
 
     <div class="mt-5 col-8 m-auto">
+        <div class="mt-5 col-8 m-auto">
+            @if ($errors->any())
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif  
+
         <form action="clas" method="post">
             @csrf
             <div class="mb-3">
                 <label for="name">Name</label>
-                <input type="text" class="form-control" name="name" id="name" required>
+                <input type="text" class="form-control" name="name" id="name">
             </div>
 
             <div class="mb-3">
                 <label for="teacher">Teacher</label>
-                <select name="teacher_id" id="teacher" class="form-control" required>
+                <select name="teacher_id" id="teacher" class="form-control">
                     <option value="">Select One</option>
                     @foreach ($teacher as $item)
                         <option value="{{ $item->id }}">{{ $item->name }}</option>

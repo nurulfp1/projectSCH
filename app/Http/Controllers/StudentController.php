@@ -7,6 +7,7 @@ use App\Models\ClassRoom;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
+use App\Http\Requests\StudentCreateRequest;
 
 class StudentController extends Controller
 {
@@ -43,7 +44,7 @@ class StudentController extends Controller
         return view('student-add', ['class' => $class]);
     }
 
-    public function store(Request $request)
+    public function store(StudentCreateRequest $request)
     {
         // $student = new Student;
         // $student->name = $request->name;
@@ -52,16 +53,30 @@ class StudentController extends Controller
         // $student->class_id = $request->class_id; 
         // $student->save();
 
-        $validated = $request->validate([
-            'nis' => 'unique:students'
-        ]);
+        // $validated = $request->validate([
+        //     'nis' => 'unique:students|max:8|required',
+        //     'name' => 'max:50|required',
+        //     'gender' => 'required',
+        //     'class_id' => 'required',
+        // ]);
 
-        $student=Student::create($request->all()); //mass assigment, lebih ringkas
+        $newName= '';
+
+        if($request->file('photo')){
+            $extension = $request->file('photo')->getClientOriginalExtension();
+            $newName = $request->name.'-'.now()->timestamp.'-'.$extension;
+            $request->file('photo')->storeAs('photo', $newName);
+        }
+
+
+        $request['image'] = $newName;
+        $student = Student::create($request->all()); //mass assigment, lebih ringkas
 
         if($student) {
             Session::flash('status', 'success');
             Session::flash('message', 'add new student success!');
         }
+
 
         return redirect('/students');
         

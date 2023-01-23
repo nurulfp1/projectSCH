@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::table('students', function (Blueprint $table) {
-            //
+            $table->string('image', 255)->nullable()->after('class_id');
         });
     }
 
@@ -26,7 +26,9 @@ return new class extends Migration
     public function down()
     {
         Schema::table('students', function (Blueprint $table) {
-            //
+            if (Schema::hasColumn('students', 'image')) {
+                $table->dropColumn('image');
+            }
         });
     }
 };

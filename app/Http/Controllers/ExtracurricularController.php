@@ -6,6 +6,7 @@ namespace App\Http\Controllers;
 use App\Models\Student;
 use Illuminate\Http\Request;
 use App\Models\Extracurricular;
+use App\Http\Requests\ExtracurricularCreateRequest;
 
 class ExtracurricularController extends Controller
 {
@@ -30,7 +31,7 @@ class ExtracurricularController extends Controller
         return view('extracurricular-add', ['student' => $student], ['ekskul' => $ekskul]);
     }
         
-    public function store(Request $request)
+    public function store(ExtracurricularCreateRequest $request)
     {
 
         // $ekskul = new Extracurricular;
