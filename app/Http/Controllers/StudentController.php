@@ -59,9 +59,11 @@ class StudentController extends Controller
         //     'gender' => 'required',
         //     'class_id' => 'required',
         // ]);
-
+        // $extension = $request->file('photo')->getClientOriginalExtension();
+        // $newName = $request->name.'-'.$extension;
+        // return $request->file('photo')->storeAs('photo', $newName);
         $newName= '';
-
+        
         if($request->file('photo')){
             $extension = $request->file('photo')->getClientOriginalExtension();
             $newName = $request->name.'-'.now()->timestamp.'-'.$extension;

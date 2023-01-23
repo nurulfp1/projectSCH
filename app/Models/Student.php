@@ -15,6 +15,7 @@ class Student extends Model
         'gender',
         'nis',
         'class_id',
+        'image',
     ];
 
     // protected $fillable = [
